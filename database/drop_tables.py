@@ -1,23 +1,26 @@
 import MySQLdb
-import os
-from dotenv import load_dotenv, find_dotenv
+from common import DB_Manager
+
+
+def drop_table(db: MySQLdb.Connection, table_name: str):
+    """
+    Drops a table from the database
+    :param db: MySQLdb.Connection
+    :param table_name: str
+    """
+    mycursor = db.cursor()
+    mycursor.execute(f"DROP TABLE {table_name}")
+    print(f"Table {table_name} dropped.")
+    mycursor.close()
 
 
 if __name__ == "__main__":
-    load_dotenv(find_dotenv())
-    db = MySQLdb.connect(
-        host=os.environ.get("DB_HOST"),
-        user=os.environ.get("DB_USER"),
-        passwd=os.environ.get("DB_PASSWORD"),
-        db=os.environ.get("DB_NAME")
-    )
-    
-    mycursor = db.cursor()
+    with DB_Manager() as db: 
+        mycursor = db.cursor()
 
-    # DROP ALL TABLES
-    mycursor.execute(f"DROP TABLE BUS_ROUTES_STOPS;")
-    mycursor.execute(f"DROP TABLE BUS_ROUTES;")
-    mycursor.execute(f"DROP TABLE STOPS;")
-    
-    db.commit()
-    db.close()
+        # DROP ALL TABLES
+        drop_table(db, "BUS_ROUTES_STOPS")
+        drop_table(db, "BUS_ROUTES")
+        drop_table(db, "STOPS")
+
+        db.commit()
