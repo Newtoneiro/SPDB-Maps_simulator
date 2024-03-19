@@ -1,7 +1,7 @@
 """An abstraction of canvas, on which the scene is drawn."""
 
 import pygame
-from src.constants import MAP_CONSTANTS, COLORS
+from src.constants import MAP_CONSTANTS, STATIC
 
 
 class Map:
@@ -35,5 +35,7 @@ class Map:
         """
         Draws the map.
         """
-        self._surface.fill(COLORS.YELLOW)
+        img = pygame.image.load(STATIC.MAP_IMG)
+        img = pygame.transform.scale(img, (MAP_CONSTANTS.MAP_WIDTH, MAP_CONSTANTS.MAP_HEIGHT))
+        self._surface.blit(img, (0, 0))
         self._win.blit(self._surface, (0, 0))

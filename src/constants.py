@@ -1,6 +1,7 @@
 """
 Constants defined for other files.
 """
+import os
 
 
 class PYGAME_CONSTANTS:
@@ -35,3 +36,12 @@ class COLORS:
     GREEN: tuple = 6, 214, 160
 
     BACKGROUND_COLOR: tuple = BLACK
+
+
+class STATIC:
+    """
+    Static constants.
+    """
+
+    STATIC_DIR: str = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
+    MAP_IMG: str = os.path.join(STATIC_DIR, "map_image.jpg")
