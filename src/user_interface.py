@@ -15,6 +15,7 @@ class UserInterface:
         self,
     ) -> None:
         self._run = True
+        self._dragging = False
 
         self._init_pygame()
         self._init_map()
@@ -58,13 +59,47 @@ class UserInterface:
         self._event_callbacks = {
             pygame.QUIT: lambda event: self._handle_stop(event),
             pygame.KEYDOWN: lambda event: self._handle_key_down(event),
+            pygame.MOUSEWHEEL: lambda event: self._handle_scroll(event),
+            pygame.MOUSEBUTTONDOWN: lambda event: self._handle_mouse_down(event),
+            pygame.MOUSEBUTTONUP: lambda event: self._handle_mouse_up(event),
+            pygame.MOUSEMOTION: lambda event: self._handle_mouse_motion(event),
         }
 
         self._key_callbacks = {
             pygame.K_v: self._handle_example,
         }
 
-    # ================== EVENT HANDLERS ================== #
+    def _handle_mouse_down(self, event: pygame.event.Event) -> None:
+        """
+        Handles mouse button down event.
+        """
+        if event.button == pygame.BUTTON_LEFT:
+            # Store the initial mouse position when left mouse button is pressed
+            self._dragging = True
+            self._drag_start_pos = event.pos
+
+    def _handle_mouse_up(self, event: pygame.event.Event) -> None:
+        """
+        Handles mouse button up event.
+        """
+        if event.button == pygame.BUTTON_LEFT:
+            # Reset dragging state when left mouse button is released
+            self._dragging = False
+
+    def _handle_mouse_motion(self, event: pygame.event.Event) -> None:
+        """
+        Handles mouse motion event.
+        """
+        if self._dragging:
+            # Calculate the change in mouse position
+            dx = event.pos[0] - self._drag_start_pos[0]
+            dy = event.pos[1] - self._drag_start_pos[1]
+
+            # Move the map based on the change in mouse position
+            self._map.move_pos(dx, dy)
+
+            # Update the initial mouse position for the next drag operation
+            self._drag_start_pos = event.pos
 
     def _handle_stop(self, _: pygame.event.Event) -> None:
         """
@@ -77,6 +112,14 @@ class UserInterface:
         Handles key down event.
         """
         self._key_callbacks.get(event.key, lambda: None)()
+
+    def _handle_scroll(self, event: pygame.event.Event) -> None:
+        """
+        Handles scroll event.
+        """
+        if not self._dragging:  # Zoom only if not dragging
+            zoom_factor = 1 + event.y * 0.1
+            self._map.zoom(pygame.mouse.get_pos(), zoom_factor)
 
     # ================== KEY CALLBACKS ================== #
 

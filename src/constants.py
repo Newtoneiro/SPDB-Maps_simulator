@@ -9,8 +9,8 @@ class PYGAME_CONSTANTS:
     Constants for pygame config.
     """
 
-    WIDTH: int = 1000
-    HEIGHT: int = 1000
+    WIDTH: int = 1920
+    HEIGHT: int = 1080
     FPS: int = 120
     WINDOW_TITLE: str = "Google maps simulation"
 
@@ -20,8 +20,11 @@ class MAP_CONSTANTS:
     Constants for map.
     """
 
-    MAP_WIDTH: int = 800
-    MAP_HEIGHT: int = 1000
+    MAP_WIDTH: int = 1920
+    MAP_HEIGHT: int = 1080
+
+    MAX_ZOOM: float = 3.0
+    MIN_ZOOM: float = 0.5
 
 
 class COLORS:
