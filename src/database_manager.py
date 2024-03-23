@@ -1,6 +1,6 @@
 import MySQLdb
 import os
-from src.datamodels import BusStop, Coordinates
+from src.datamodels import Landmark, Coordinates
 
 
 class DataBaseManager:
@@ -21,12 +21,12 @@ class DataBaseManager:
             db=os.environ.get("DB_NAME")
         )
 
-    def fetch_bus_stops(self) -> list[BusStop]:
+    def fetch_landmarks(self) -> list[Landmark]:
         """
-        Fetches all bus stops from the database.
+        Fetches all landmarks from the database.
         """
         if not self._db:
             raise Exception("Database connection not initialized.")
         cursor = self._db.cursor()
-        cursor.execute("SELECT * FROM BUS_STOPS")
-        return [BusStop(id, name, is_active, Coordinates(x, y)) for id, name, is_active, x, y in cursor.fetchall()]
+        cursor.execute("SELECT * FROM LANDMARKS")
+        return [Landmark(id, name, desc, Coordinates(x, y)) for id, name, desc, x, y in cursor.fetchall()]

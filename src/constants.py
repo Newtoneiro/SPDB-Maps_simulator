@@ -26,7 +26,8 @@ class MAP_CONSTANTS:
     MAX_ZOOM: float = 3.0
     MIN_ZOOM: float = 0.5
 
-    BUS_STOP_SIZE: int = 5
+    LANDMARK_BORDER_SIZE: int = 3
+    LANDMARK_SIZE: int = 12
 
 
 class COLORS:

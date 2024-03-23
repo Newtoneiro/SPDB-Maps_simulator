@@ -19,8 +19,15 @@ class Map:
         self._win = win
         self._clock = clock
 
+        self._init_pygame()
         self._init_surface()
         self._init_map()
+
+    def _init_pygame(self) -> None:
+        """
+        Initializes pygame stuff.
+        """
+        self._default_label_font = pygame.font.Font(None, 30)
 
     def _init_map(self) -> None:
         """
@@ -49,7 +56,7 @@ class Map:
 
     # ============== PUBLIC METHODS =============== #
         
-    def zoom(self, pos: tuple, zoom: float) -> None:
+    def zoom(self, zoom: float) -> None:
         """
         Zooms the map.
         :param pos: position of the mouse.
@@ -98,17 +105,39 @@ class Map:
         # Re-blit the map onto the surface
         self._blitmap()
 
-    def draw_bus_stops(self, bus_stops: list) -> None:
+    def draw_landmarks(self, landmarks: list) -> None:
         """
-        Draws bus stops on the map.
-        :param bus_stops: list of bus stops.
+        Draws landmarks on the map.
+        :param landmarks: list of landmarks.
         """
-        for bus_stop in bus_stops:
+        for landmark in landmarks:
+            label_surface = self._default_label_font.render(landmark.name, True, COLORS.BLACK)
+            label_rect = label_surface.get_rect(
+                center=(
+                    landmark.coordinates.x + MAP_CONSTANTS.LANDMARK_SIZE,
+                    landmark.coordinates.y - MAP_CONSTANTS.LANDMARK_SIZE
+                )
+            )
+            label_rect.x -= MAP_CONSTANTS.LANDMARK_SIZE
+            label_rect.y -= MAP_CONSTANTS.LANDMARK_SIZE
+            pygame.draw.rect(
+                self._map,
+                COLORS.WHITE,
+                label_rect
+            )
+            self._map.blit(label_surface, label_rect)
+
+            pygame.draw.circle(
+                self._map,
+                COLORS.BLACK,
+                (landmark.coordinates.x, landmark.coordinates.y),
+                MAP_CONSTANTS.LANDMARK_SIZE + MAP_CONSTANTS.LANDMARK_BORDER_SIZE
+            )
             pygame.draw.circle(
                 self._map,
                 COLORS.RED,
-                (bus_stop.coordinates.x, bus_stop.coordinates.y),
-                MAP_CONSTANTS.BUS_STOP_SIZE
+                (landmark.coordinates.x, landmark.coordinates.y),
+                MAP_CONSTANTS.LANDMARK_SIZE
             )
 
     def get_coordinates(self, x: int, y: int) -> tuple:
@@ -117,7 +146,10 @@ class Map:
         :param x: x-coordinate.
         :param y: y-coordinate.
         """
-        return x - self._map_rect.left, y - self._map_rect.top
+        return (
+            (x - self._map_rect.left) / (self._map_rect.width / MAP_CONSTANTS.MAP_WIDTH),
+            (y - self._map_rect.top) / (self._map_rect.height / MAP_CONSTANTS.MAP_HEIGHT),
+        )
 
     def draw(self):
         """

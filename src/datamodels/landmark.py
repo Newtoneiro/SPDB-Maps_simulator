@@ -6,14 +6,14 @@ from dataclasses import dataclass
 
 
 @dataclass
-class BusStop:
+class Landmark:
     id: int
     name: str
-    is_active: bool
+    description: str
     coordinates: Coordinates
 
     def __str__(self):
-        return f"[Stop] {self.id}: {self.name} <{'Active' if self.is_active else 'Disabled'}> ({self.coordinates})"
+        return f"[Stop] {self.id}: {self.name} ({self.coordinates})"
 
     def __eq__(self, other):
         return self.id == other.id

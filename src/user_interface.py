@@ -42,7 +42,7 @@ class UserInterface:
         """
         Draws the map.
         """
-        self._map.draw_bus_stops(self._bus_stops)
+        self._map.draw_landmarks(self._landmarks)
         self._map.draw()
 
     def _handle_events(self) -> None:
@@ -122,7 +122,7 @@ class UserInterface:
         """
         if not self._dragging:  # Zoom only if not dragging
             zoom_factor = 1 + event.y * 0.1
-            self._map.zoom(pygame.mouse.get_pos(), zoom_factor)
+            self._map.zoom(zoom_factor)
 
     # ================== KEY CALLBACKS ================== #
 
@@ -134,12 +134,12 @@ class UserInterface:
 
     # ================== PUBLIC METHODS ================== #
         
-    def load_bus_stops(self, bus_stops: list) -> None:
+    def load_landmarks(self, landmarks: list) -> None:
         """
-        Loads bus stops onto the map.
-        :param bus_stops: list of bus stops.
+        Loads landmarks onto the map.
+        :param landmarks: list of landmarks.
         """
-        self._bus_stops = bus_stops
+        self._landmarks = landmarks
 
     def run(self) -> None:
         """

@@ -1,1 +1,0 @@
-INSERT INTO BUS_ROUTES (id, name) VALUES (1, 'Route 1');

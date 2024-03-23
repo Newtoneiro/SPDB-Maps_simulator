@@ -24,5 +24,5 @@ class SimulationManager:
         """
         Runs the simulation.
         """
-        self._ui.load_bus_stops(self._dbm.fetch_bus_stops())
+        self._ui.load_landmarks(self._dbm.fetch_landmarks())
         self._ui.run()
