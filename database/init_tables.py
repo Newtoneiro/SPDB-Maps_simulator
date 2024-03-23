@@ -25,7 +25,7 @@ if __name__ == "__main__":
         mycursor = db.cursor()
 
         init_table(db, "BUS_ROUTES")
-        init_table(db, "STOPS")
-        init_table(db, "BUS_ROUTES_STOPS")
+        init_table(db, "BUS_STOPS")
+        init_table(db, "BUS_ROUTES_BUS_STOPS")
 
         db.commit()

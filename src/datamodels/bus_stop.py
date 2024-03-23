@@ -1,23 +1,20 @@
 """
 This module contains the Stop data model.
 """
-
+from src.datamodels.coordinates import Coordinates
 from dataclasses import dataclass
 
 
 @dataclass
-class Stop:
+class BusStop:
     id: int
     name: str
     is_active: bool
-    coordinates: tuple
+    coordinates: Coordinates
 
     def __str__(self):
-        return f"[Stop] {self.id}: {self.name}"
-    
-    def __repr__(self):
-        return f"{self.id}: {self.name}"
-    
+        return f"[Stop] {self.id}: {self.name} <{'Active' if self.is_active else 'Disabled'}> ({self.coordinates})"
+
     def __eq__(self, other):
         return self.id == other.id
     

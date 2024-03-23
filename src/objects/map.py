@@ -98,8 +98,30 @@ class Map:
         # Re-blit the map onto the surface
         self._blitmap()
 
+    def draw_bus_stops(self, bus_stops: list) -> None:
+        """
+        Draws bus stops on the map.
+        :param bus_stops: list of bus stops.
+        """
+        for bus_stop in bus_stops:
+            pygame.draw.circle(
+                self._map,
+                COLORS.RED,
+                (bus_stop.coordinates.x, bus_stop.coordinates.y),
+                MAP_CONSTANTS.BUS_STOP_SIZE
+            )
+
+    def get_coordinates(self, x: int, y: int) -> tuple:
+        """
+        Returns the coordinates of the map.
+        :param x: x-coordinate.
+        :param y: y-coordinate.
+        """
+        return x - self._map_rect.left, y - self._map_rect.top
+
     def draw(self):
         """
         Draws the map.
         """
+        self._blitmap()
         self._win.blit(self._surface, (0, 0))

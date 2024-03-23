@@ -8,7 +8,6 @@ class UserInterface:
     """
     Class managing the simulations.
     """
-
     # ============== INITIALIZATION =============== #
 
     def __init__(
@@ -43,6 +42,7 @@ class UserInterface:
         """
         Draws the map.
         """
+        self._map.draw_bus_stops(self._bus_stops)
         self._map.draw()
 
     def _handle_events(self) -> None:
@@ -77,6 +77,9 @@ class UserInterface:
             # Store the initial mouse position when left mouse button is pressed
             self._dragging = True
             self._drag_start_pos = event.pos
+        if event.button == pygame.BUTTON_RIGHT:
+            x, y = pygame.mouse.get_pos()
+            print(self._map.get_coordinates(x, y))
 
     def _handle_mouse_up(self, event: pygame.event.Event) -> None:
         """
@@ -130,6 +133,13 @@ class UserInterface:
         print("Example")
 
     # ================== PUBLIC METHODS ================== #
+        
+    def load_bus_stops(self, bus_stops: list) -> None:
+        """
+        Loads bus stops onto the map.
+        :param bus_stops: list of bus stops.
+        """
+        self._bus_stops = bus_stops
 
     def run(self) -> None:
         """
@@ -138,7 +148,6 @@ class UserInterface:
         self._init_event_callbacks()
         while self._run:
             self._clock.tick(PYGAME_CONSTANTS.FPS)
-            self._win.fill(COLORS.BACKGROUND_COLOR)
             self._draw_map()
             self._handle_events()
             pygame.display.flip()
