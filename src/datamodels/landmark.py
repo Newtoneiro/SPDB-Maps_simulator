@@ -9,7 +9,6 @@ from dataclasses import dataclass
 class Landmark:
     id: int
     name: str
-    description: str
     coordinates: Coordinates
 
     def __str__(self):

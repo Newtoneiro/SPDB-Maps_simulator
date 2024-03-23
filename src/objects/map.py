@@ -1,7 +1,8 @@
 """An abstraction of canvas, on which the scene is drawn."""
 
 import pygame
-from src.constants import MAP_CONSTANTS, STATIC, COLORS
+from src.constants import MAP_CONSTANTS, STATIC, COLORS, PYGAME_CONSTANTS
+from src.datamodels.landmark import Landmark
 
 
 class Map:
@@ -27,7 +28,15 @@ class Map:
         """
         Initializes pygame stuff.
         """
-        self._default_label_font = pygame.font.Font(None, 30)
+        self._default_label_font = pygame.font.Font(None, PYGAME_CONSTANTS.DEFAULT_FONT_SIZE)
+
+    def _init_surface(self) -> None:
+        """
+        Initializes pygame surface.
+        """
+        self._surface = pygame.Surface(
+            (MAP_CONSTANTS.MAP_WIDTH, MAP_CONSTANTS.MAP_HEIGHT)
+        )
 
     def _init_map(self) -> None:
         """
@@ -38,14 +47,6 @@ class Map:
         self._map_rect = self._map.get_rect(center=self._surface.get_rect().center)
         self._blitmap()
 
-    def _init_surface(self) -> None:
-        """
-        Initializes pygame surface.
-        """
-        self._surface = pygame.Surface(
-            (MAP_CONSTANTS.MAP_WIDTH, MAP_CONSTANTS.MAP_HEIGHT)
-        )
-
     def _blitmap(self) -> None:
         """
         Blits the map onto the surface.
@@ -53,6 +54,43 @@ class Map:
         scaled_map = pygame.transform.scale(self._map, self._map_rect.size)
         self._surface.fill(color=COLORS.BACKGROUND_COLOR)
         self._surface.blit(scaled_map, self._map_rect)
+
+    def _draw_landmark_point(self, landmark: Landmark) -> None:
+        """
+        Draws a landmark on the map.
+        """
+        pygame.draw.circle(
+            self._map,
+            COLORS.BLACK,
+            (landmark.coordinates.x, landmark.coordinates.y),
+            MAP_CONSTANTS.LANDMARK_SIZE + MAP_CONSTANTS.LANDMARK_BORDER_SIZE
+        )
+        pygame.draw.circle(
+            self._map,
+            COLORS.RED,
+            (landmark.coordinates.x, landmark.coordinates.y),
+            MAP_CONSTANTS.LANDMARK_SIZE
+        )
+
+    def _draw_landmark_label(self, landmark: Landmark) -> None:
+        """
+        Draws a label for a landmark on the map.
+        """
+        label_surface = self._default_label_font.render(landmark.name, True, COLORS.BLACK)
+        label_rect = label_surface.get_rect(
+            center=(
+                landmark.coordinates.x + MAP_CONSTANTS.LANDMARK_SIZE,
+                landmark.coordinates.y - MAP_CONSTANTS.LANDMARK_SIZE
+            )
+        )
+        label_rect.x -= MAP_CONSTANTS.LANDMARK_SIZE
+        label_rect.y -= MAP_CONSTANTS.LANDMARK_SIZE
+        pygame.draw.rect(
+            self._map,
+            COLORS.WHITE,
+            label_rect
+        )
+        self._map.blit(label_surface, label_rect)
 
     # ============== PUBLIC METHODS =============== #
         
@@ -111,34 +149,8 @@ class Map:
         :param landmarks: list of landmarks.
         """
         for landmark in landmarks:
-            label_surface = self._default_label_font.render(landmark.name, True, COLORS.BLACK)
-            label_rect = label_surface.get_rect(
-                center=(
-                    landmark.coordinates.x + MAP_CONSTANTS.LANDMARK_SIZE,
-                    landmark.coordinates.y - MAP_CONSTANTS.LANDMARK_SIZE
-                )
-            )
-            label_rect.x -= MAP_CONSTANTS.LANDMARK_SIZE
-            label_rect.y -= MAP_CONSTANTS.LANDMARK_SIZE
-            pygame.draw.rect(
-                self._map,
-                COLORS.WHITE,
-                label_rect
-            )
-            self._map.blit(label_surface, label_rect)
-
-            pygame.draw.circle(
-                self._map,
-                COLORS.BLACK,
-                (landmark.coordinates.x, landmark.coordinates.y),
-                MAP_CONSTANTS.LANDMARK_SIZE + MAP_CONSTANTS.LANDMARK_BORDER_SIZE
-            )
-            pygame.draw.circle(
-                self._map,
-                COLORS.RED,
-                (landmark.coordinates.x, landmark.coordinates.y),
-                MAP_CONSTANTS.LANDMARK_SIZE
-            )
+            self._draw_landmark_point(landmark)
+            self._draw_landmark_label(landmark)
 
     def get_coordinates(self, x: int, y: int) -> tuple:
         """

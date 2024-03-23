@@ -29,4 +29,4 @@ class DataBaseManager:
             raise Exception("Database connection not initialized.")
         cursor = self._db.cursor()
         cursor.execute("SELECT * FROM LANDMARKS")
-        return [Landmark(id, name, desc, Coordinates(x, y)) for id, name, desc, x, y in cursor.fetchall()]
+        return [Landmark(id, name, Coordinates(x, y)) for id, name, x, y in cursor.fetchall()]

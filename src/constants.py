@@ -13,6 +13,7 @@ class PYGAME_CONSTANTS:
     HEIGHT: int = 1080
     FPS: int = 120
     WINDOW_TITLE: str = "Google maps simulation"
+    DEFAULT_FONT_SIZE: int = 30
 
 
 class MAP_CONSTANTS:
