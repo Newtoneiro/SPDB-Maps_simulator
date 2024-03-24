@@ -12,7 +12,7 @@ class PYGAME_CONSTANTS:
     WIDTH: int = 1920
     HEIGHT: int = 1080
     FPS: int = 120
-    WINDOW_TITLE: str = "Google maps simulation"
+    WINDOW_TITLE: str = "map simulation"
     DEFAULT_FONT_SIZE: int = 30
 
 
@@ -50,5 +50,6 @@ class STATIC:
     Static constants.
     """
 
-    STATIC_DIR: str = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
+    STATIC_DIR: str = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), "static")
     MAP_IMG: str = os.path.join(STATIC_DIR, "map_image.jpg")
