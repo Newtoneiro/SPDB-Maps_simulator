@@ -9,3 +9,33 @@
    - `DB_PASSWORD="<your-password>"`
    - `DB_NAME="spdb"`
 5. To test if everything is set up correctly - please execute `python3 ./src/test/scripts/db_connectivity_test.py`
+
+
+
+## Client requirements
+
+### ENGLISH
+Finding the best route. Implementation of an application for determining the best route according to the given ones
+parameters, developing a method and performing tests to check its practical usability
+proposed solutions (calculating a route in cities for several or more given places to
+visit). The basic parameters for choosing the best route are: time and distance.
+An additional requirement is to minimize left turns.
+Final documentation should include:
+- Description of the method for determining the best route, including how to select the best route. Model description
+data.
+- Description of the application architecture.
+- Information about the implementation (algorithms used + commented source code).
+- Description and results of the tests performed.
+
+### POLISH (original)
+Znajdowanie najlepszej trasy. Implementacja aplikacji do wyznaczania najlepszej trasy wg zadanych
+parametrów, opracowanie metody oraz wykonanie testów sprawdzających praktyczną użyteczność
+zaproponowanych rozwiązań (wyznaczanie trasy w miastach dla kilku lub więcej podanych miejsc do
+odwiedzenia). Podstawowymi parametrami do wyboru najlepszej trasy jest: czas i odległość.
+Dodatkowym wymogiem jest minimalizacja skrętów w lewo.
+Dokumentacja końcowa powinna zawierać:
+- Opis metody wyznaczania najlepszej drogi, w tym sposobu wyboru najlepszej trasy. Opis modelu
+danych.
+- Opis architektury aplikacji.
+- Informacje o implementacji (wykorzystane algorytmy + skomentowany kod źródłowy).
+- Opis i wyniki przeprowadzonych testów.
