@@ -45,7 +45,9 @@ def create_table(db: MySQLdb.Connection, table_name: str, columns: dict):
     :param columns: dict
     """
     mycursor = db.cursor()
-    columns_str = ", ".join([f"{key} {value}" for key, value in columns.items()])
+    columns_str = ", ".join(
+        [f"{key} {value}" for key, value in columns.items()]
+    )
     mycursor.execute(f"CREATE TABLE {table_name} ({columns_str})")
 
 
@@ -60,7 +62,9 @@ def insert_into_table(db: MySQLdb.Connection, table_name: str, values: dict):
     mycursor = db.cursor()
     columns_str = ", ".join(values.keys())
     values_str = ", ".join([f"'{value}'" for value in values.values()])
-    mycursor.execute(f"INSERT INTO {table_name} ({columns_str}) VALUES ({values_str})")
+    mycursor.execute(
+        f"INSERT INTO {table_name} ({columns_str}) VALUES ({values_str})"
+    )
 
 
 @log_output
@@ -86,7 +90,6 @@ def drop_table(db: MySQLdb.Connection, table_name: str):
     """
     mycursor = db.cursor()
     mycursor.execute(f"DROP TABLE {table_name}")
-    raise Exception("Table dropped")
 
 
 @log_output
@@ -100,7 +103,7 @@ def close_connection(db: MySQLdb.Connection):
 
 if __name__ == "__main__":
     load_dotenv(find_dotenv())
-    
+
     db = connect_to_db()
 
     TABLE_NAME = "person"
