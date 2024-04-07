@@ -8,7 +8,7 @@
    - `DB_USER="root"`
    - `DB_PASSWORD="<your-password>"`
    - `DB_NAME="spdb"`
-5. To test if everything is set up correctly - please execute `python3 ./src/test/scripts/db_connectivity_test.py`
+5. To test if everything is set up correctly - please execute `python3 ./test/scripts/db_connectivity_test.py`
 
 ## Running app
 
