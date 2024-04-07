@@ -1,28 +1,11 @@
-INSERT INTO NODES (id, name, X, Y) VALUES (1, 'Some old church', 100, 100);
-INSERT INTO NODES (id, name, X, Y) VALUES (2, 'City council', 200, 300);
-INSERT INTO NODES (id, name, X, Y) VALUES (3, 'Swimming pool', 400, 600);
-INSERT INTO NODES (id, name, X, Y) VALUES (4, 'Library', 500, 700);
-INSERT INTO NODES (id, name, X, Y) VALUES (5, 'Hospital', 600, 800);
--- INSERT INTO NODES (id, name, X, Y) VALUES (6, 'Police station', 700, 900);
--- INSERT INTO NODES (id, name, X, Y) VALUES (7, 'Fire station', 800, 600);
--- INSERT INTO NODES (id, name, X, Y) VALUES (8, 'School', 900, 1100);
-INSERT INTO NODES (id, name, X, Y) VALUES (9, 'Supermarket', 1000, 1200);
--- INSERT INTO NODES (id, name, X, Y) VALUES (10, 'Post office', 1100, 600);
--- INSERT INTO NODES (id, name, X, Y) VALUES (11, 'Cinema', 1200, 400);
--- INSERT INTO NODES (id, name, X, Y) VALUES (12, 'Museum', 1300, 600);
--- INSERT INTO NODES (id, name, X, Y) VALUES (13, 'Art gallery', 1400, 600);
-INSERT INTO NODES (id, name, X, Y) VALUES (14, 'Theatre', 1500, 100);
--- INSERT INTO NODES (id, name, X, Y) VALUES (15, 'Stadium', 1600, 550);
--- INSERT INTO NODES (id, name, X, Y) VALUES (16, 'Park', 1700, 1300);
--- INSERT INTO NODES (id, name, X, Y) VALUES (17, 'Zoo', 1800, 400);
--- INSERT INTO NODES (id, name, X, Y) VALUES (18, 'Shopping mall', 1900, 600);
-INSERT INTO NODES (id, name, X, Y) VALUES (19, 'Train station', 2000, 100);
--- INSERT INTO NODES (id, name, X, Y) VALUES (20, 'Bus station', 2100, 300);
--- INSERT INTO NODES (id, name, X, Y) VALUES (21, 'Airport', 2200, 600);
--- INSERT INTO NODES (id, name, X, Y) VALUES (22, 'Harbour', 600, 200);
-INSERT INTO NODES (id, name, X, Y) VALUES (23, 'Beach', 400, 100);
--- INSERT INTO NODES (id, name, X, Y) VALUES (24, 'Mountain', 800, 250);
--- INSERT INTO NODES (id, name, X, Y) VALUES (25, 'Lake', 1150, 880);
--- INSERT INTO NODES (id, name, X, Y) VALUES (26, 'River', 1430, 880);
-INSERT INTO NODES (id, name, X, Y) VALUES (27, 'Forest', 1830, 950);
--- INSERT INTO NODES (id, name, X, Y) VALUES (28, 'Desert', 1120, 52);
+INSERT INTO NODES (id, name, X, Y) VALUES
+(1, 'City Hall', 100, 100),
+(2, 'Park', 500, 200),
+(3, 'Library', 900, 300),
+(4, 'Museum', 200, 400),
+(5, 'Train Station', 600, 500),
+(6, 'Shopping Mall', 1000, 600),
+(7, 'Hospital', 300, 700),
+(8, 'University', 700, 800),
+(9, 'Restaurant', 1100, 900),
+(10, 'Cinema', 500, 1000);

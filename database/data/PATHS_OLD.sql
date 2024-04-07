@@ -1,0 +1,16 @@
+INSERT INTO PATHS (id, from_node_id, to_node_id, distance, travel_time) VALUES (1, 1, 3, 700.00, 35.00);
+INSERT INTO PATHS (id, from_node_id, to_node_id, distance, travel_time) VALUES (2, 1, 5, 1100.00, 60.00);
+INSERT INTO PATHS (id, from_node_id, to_node_id, distance, travel_time) VALUES (3, 1, 9, 1500.00, 75.00);
+INSERT INTO PATHS (id, from_node_id, to_node_id, distance, travel_time) VALUES (4, 2, 4, 600.00, 30.00);
+INSERT INTO PATHS (id, from_node_id, to_node_id, distance, travel_time) VALUES (5, 2, 9, 1300.00, 65.00);
+INSERT INTO PATHS (id, from_node_id, to_node_id, distance, travel_time) VALUES (6, 4, 9, 800.00, 40.00);
+INSERT INTO PATHS (id, from_node_id, to_node_id, distance, travel_time) VALUES (7, 4, 14, 1600.00, 80.00);
+INSERT INTO PATHS (id, from_node_id, to_node_id, distance, travel_time) VALUES (8, 5, 9, 800.00, 45.00);
+INSERT INTO PATHS (id, from_node_id, to_node_id, distance, travel_time) VALUES (9, 5, 14, 2100.00, 100.00);
+INSERT INTO PATHS (id, from_node_id, to_node_id, distance, travel_time) VALUES (10, 5, 19, 2500.00, 120.00);
+INSERT INTO PATHS (id, from_node_id, to_node_id, distance, travel_time) VALUES (11, 9, 19, 1000.00, 50.00);
+INSERT INTO PATHS (id, from_node_id, to_node_id, distance, travel_time) VALUES (12, 9, 23, 2100.00, 110.00);
+INSERT INTO PATHS (id, from_node_id, to_node_id, distance, travel_time) VALUES (13, 14, 19, 3200.00, 150.00);
+INSERT INTO PATHS (id, from_node_id, to_node_id, distance, travel_time) VALUES (14, 19, 23, 1200.00, 60.00);
+INSERT INTO PATHS (id, from_node_id, to_node_id, distance, travel_time) VALUES (15, 19, 27, 2300.00, 120.00);
+INSERT INTO PATHS (id, from_node_id, to_node_id, distance, travel_time) VALUES (16, 23, 27, 800.00, 40.00);

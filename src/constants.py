@@ -1,6 +1,7 @@
 """
 Constants defined for other files.
 """
+
 import os
 
 
@@ -30,6 +31,9 @@ class MAP_CONSTANTS:
     NODE_BORDER_SIZE: int = 3
     NODE_SIZE: int = 12
 
+    PATH_BORDER_SIZE: int = 3
+    PATH_WIDTH: int = 4
+
 
 class COLORS:
     """
@@ -41,6 +45,8 @@ class COLORS:
     RED: tuple = 239, 71, 111
     YELLOW: tuple = 255, 209, 102
     GREEN: tuple = 6, 214, 160
+    BLUE: tuple = 0, 126, 167
+    ANGRY_YELLOW: tuple = 255, 255, 0
 
     BACKGROUND_COLOR: tuple = BLACK
 
@@ -50,6 +56,5 @@ class STATIC:
     Static constants.
     """
 
-    STATIC_DIR: str = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), "static")
+    STATIC_DIR: str = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
     MAP_IMG: str = os.path.join(STATIC_DIR, "map_image.jpg")

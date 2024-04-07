@@ -15,10 +15,11 @@ def drop_table(db: MySQLdb.Connection, table_name: str):
 
 
 if __name__ == "__main__":
-    with DB_Manager() as db: 
+    with DB_Manager() as db:
         mycursor = db.cursor()
 
         # DROP ALL TABLES
+        drop_table(db, "PATHS")
         drop_table(db, "NODES")
 
         db.commit()

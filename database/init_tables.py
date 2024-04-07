@@ -25,5 +25,6 @@ if __name__ == "__main__":
         mycursor = db.cursor()
 
         init_table(db, "NODES")
+        init_table(db, "PATHS")
 
         db.commit()

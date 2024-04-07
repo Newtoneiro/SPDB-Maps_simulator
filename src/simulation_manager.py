@@ -14,6 +14,7 @@ class SimulationManager:
         self._dbm = DataBaseManager()
         self._dbm.connect()
         self._nodes = self._dbm.fetch_nodes()
+        self._paths = self._dbm.fetch_paths()
 
     def _init_user_interface(self) -> None:
         """
@@ -26,6 +27,7 @@ class SimulationManager:
         Prepares the simulation for running.
         """
         self._ui.load_nodes(self._nodes)
+        self._ui.load_paths(self._paths)
 
     # ================= Public methods ================= #
 

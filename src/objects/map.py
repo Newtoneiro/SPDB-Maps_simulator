@@ -2,7 +2,7 @@
 
 import pygame
 from src.constants import MAP_CONSTANTS, STATIC, COLORS, PYGAME_CONSTANTS
-from src.datamodels.node import Node
+from src.datamodels import Node, Path
 
 
 class Map:
@@ -28,7 +28,9 @@ class Map:
         """
         Initializes pygame stuff.
         """
-        self._default_label_font = pygame.font.Font(None, PYGAME_CONSTANTS.DEFAULT_FONT_SIZE)
+        self._default_label_font = pygame.font.Font(
+            None, PYGAME_CONSTANTS.DEFAULT_FONT_SIZE
+        )
 
     def _init_surface(self) -> None:
         """
@@ -43,7 +45,9 @@ class Map:
         Initializes the map.
         """
         self._map = pygame.image.load(STATIC.MAP_IMG)
-        self._map = pygame.transform.scale(self._map, (MAP_CONSTANTS.MAP_WIDTH, MAP_CONSTANTS.MAP_HEIGHT))
+        self._map = pygame.transform.scale(
+            self._map, (MAP_CONSTANTS.MAP_WIDTH, MAP_CONSTANTS.MAP_HEIGHT)
+        )
         self._map_rect = self._map.get_rect(center=self._surface.get_rect().center)
         self._blitmap()
 
@@ -63,13 +67,13 @@ class Map:
             self._map,
             COLORS.BLACK,
             (node.coordinates.x, node.coordinates.y),
-            MAP_CONSTANTS.NODE_SIZE + MAP_CONSTANTS.NODE_BORDER_SIZE
+            MAP_CONSTANTS.NODE_SIZE + MAP_CONSTANTS.NODE_BORDER_SIZE,
         )
         pygame.draw.circle(
             self._map,
             COLORS.RED,
             (node.coordinates.x, node.coordinates.y),
-            MAP_CONSTANTS.NODE_SIZE
+            MAP_CONSTANTS.NODE_SIZE,
         )
 
     def _draw_node_label(self, node: Node) -> None:
@@ -80,20 +84,35 @@ class Map:
         label_rect = label_surface.get_rect(
             center=(
                 node.coordinates.x + MAP_CONSTANTS.NODE_SIZE,
-                node.coordinates.y - MAP_CONSTANTS.NODE_SIZE
+                node.coordinates.y - MAP_CONSTANTS.NODE_SIZE,
             )
         )
         label_rect.x -= MAP_CONSTANTS.NODE_SIZE
         label_rect.y -= MAP_CONSTANTS.NODE_SIZE
-        pygame.draw.rect(
-            self._map,
-            COLORS.WHITE,
-            label_rect
-        )
+        pygame.draw.rect(self._map, COLORS.WHITE, label_rect)
         self._map.blit(label_surface, label_rect)
 
+    def _draw_path(self, path: Path) -> None:
+        """
+        Draws a path on the map.
+        """
+        pygame.draw.line(
+            self._map,
+            COLORS.BLACK,
+            (path.from_node.coordinates.x, path.from_node.coordinates.y),
+            (path.to_node.coordinates.x, path.to_node.coordinates.y),
+            MAP_CONSTANTS.PATH_WIDTH + MAP_CONSTANTS.PATH_BORDER_SIZE,
+        )
+        pygame.draw.line(
+            self._map,
+            COLORS.ANGRY_YELLOW,
+            (path.from_node.coordinates.x, path.from_node.coordinates.y),
+            (path.to_node.coordinates.x, path.to_node.coordinates.y),
+            MAP_CONSTANTS.PATH_WIDTH,
+        )
+
     # ============== PUBLIC METHODS =============== #
-        
+
     def zoom(self, zoom: float) -> None:
         """
         Zooms the map.
@@ -103,16 +122,16 @@ class Map:
         new_width = min(
             max(
                 MAP_CONSTANTS.MAP_WIDTH * MAP_CONSTANTS.MIN_ZOOM,
-                int(self._map_rect.width * zoom)
+                int(self._map_rect.width * zoom),
             ),
-            MAP_CONSTANTS.MAP_WIDTH * MAP_CONSTANTS.MAX_ZOOM
+            MAP_CONSTANTS.MAP_WIDTH * MAP_CONSTANTS.MAX_ZOOM,
         )
         new_height = min(
             max(
                 MAP_CONSTANTS.MAP_HEIGHT * MAP_CONSTANTS.MIN_ZOOM,
-                int(self._map_rect.height * zoom)
+                int(self._map_rect.height * zoom),
             ),
-            MAP_CONSTANTS.MAP_HEIGHT * MAP_CONSTANTS.MAX_ZOOM
+            MAP_CONSTANTS.MAP_HEIGHT * MAP_CONSTANTS.MAX_ZOOM,
         )
 
         # Calculate the difference between the old and new width and height
@@ -124,7 +143,7 @@ class Map:
         self._map_rect.height = new_height
         self._map_rect.center = (
             self._map_rect.centerx - width_diff / 2,
-            self._map_rect.centery - height_diff / 2
+            self._map_rect.centery - height_diff / 2,
         )
 
         # Re-blit the map onto the surface
@@ -152,6 +171,14 @@ class Map:
             self._draw_node_point(node)
             self._draw_node_label(node)
 
+    def draw_paths(self, paths: list) -> None:
+        """
+        Draws paths on the map.
+        :param paths: list of paths.
+        """
+        for path in paths:
+            self._draw_path(path)
+
     def get_coordinates(self, x: int, y: int) -> tuple:
         """
         Returns the coordinates of the map.
@@ -159,8 +186,10 @@ class Map:
         :param y: y-coordinate.
         """
         return (
-            (x - self._map_rect.left) / (self._map_rect.width / MAP_CONSTANTS.MAP_WIDTH),
-            (y - self._map_rect.top) / (self._map_rect.height / MAP_CONSTANTS.MAP_HEIGHT),
+            (x - self._map_rect.left)
+            / (self._map_rect.width / MAP_CONSTANTS.MAP_WIDTH),
+            (y - self._map_rect.top)
+            / (self._map_rect.height / MAP_CONSTANTS.MAP_HEIGHT),
         )
 
     def draw(self):

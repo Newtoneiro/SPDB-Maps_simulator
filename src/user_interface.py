@@ -1,4 +1,5 @@
 """ User interface module. """
+
 import pygame
 from src.objects import Map
 from src.constants import PYGAME_CONSTANTS, COLORS
@@ -8,6 +9,7 @@ class UserInterface:
     """
     Class managing the simulations.
     """
+
     # ============== INITIALIZATION =============== #
 
     def __init__(
@@ -37,12 +39,13 @@ class UserInterface:
         self._map = Map(self._win, self._clock)
 
     # ============== PRIVATE METHODS =============== #
-        
+
     def _draw_map(self) -> None:
         """
         Draws the map.
         """
         self._map.draw_nodes(self._nodes)
+        self._map.draw_paths(self._paths)
         self._map.draw()
 
     def _handle_events(self) -> None:
@@ -133,13 +136,20 @@ class UserInterface:
         print("Example")
 
     # ================== PUBLIC METHODS ================== #
-        
+
     def load_nodes(self, nodes: list) -> None:
         """
         Loads nodes onto the map.
         :param nodes: list of nodes.
         """
         self._nodes = nodes
+
+    def load_paths(self, paths: list) -> None:
+        """
+        Loads paths onto the map.
+        :param paths: list of paths.
+        """
+        self._paths = paths
 
     def run(self) -> None:
         """

@@ -21,9 +21,10 @@ def fill_table(db: MySQLdb.Connection, table_fill_sql: str):
 
 
 if __name__ == "__main__":
-    with DB_Manager() as db: 
+    with DB_Manager() as db:
         mycursor = db.cursor()
 
         fill_table(db, "NODES")
+        fill_table(db, "PATHS")
 
         db.commit()

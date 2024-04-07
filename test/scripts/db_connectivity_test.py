@@ -8,6 +8,7 @@ def log_output(f):
     """
     Decorator to log the execution of a function
     """
+
     @functools.wraps(f)
     def wrapper(*args, **kwargs):
         log_text = f"Executing function: {f.__name__} "
@@ -18,6 +19,7 @@ def log_output(f):
             log_text += f"❌\nError: {str(e)}\n"
         print(log_text)
         return result
+
     return wrapper
 
 
@@ -31,7 +33,7 @@ def connect_to_db() -> MySQLdb.Connection:
         host=os.environ.get("DB_HOST"),
         user=os.environ.get("DB_USER"),
         passwd=os.environ.get("DB_PASSWORD"),
-        db=os.environ.get("DB_NAME")
+        db=os.environ.get("DB_NAME"),
     )
     return db
 
@@ -45,9 +47,7 @@ def create_table(db: MySQLdb.Connection, table_name: str, columns: dict):
     :param columns: dict
     """
     mycursor = db.cursor()
-    columns_str = ", ".join(
-        [f"{key} {value}" for key, value in columns.items()]
-    )
+    columns_str = ", ".join([f"{key} {value}" for key, value in columns.items()])
     mycursor.execute(f"CREATE TABLE {table_name} ({columns_str})")
 
 
@@ -62,9 +62,7 @@ def insert_into_table(db: MySQLdb.Connection, table_name: str, values: dict):
     mycursor = db.cursor()
     columns_str = ", ".join(values.keys())
     values_str = ", ".join([f"'{value}'" for value in values.values()])
-    mycursor.execute(
-        f"INSERT INTO {table_name} ({columns_str}) VALUES ({values_str})"
-    )
+    mycursor.execute(f"INSERT INTO {table_name} ({columns_str}) VALUES ({values_str})")
 
 
 @log_output
