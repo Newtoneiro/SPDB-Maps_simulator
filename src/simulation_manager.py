@@ -13,7 +13,7 @@ class SimulationManager:
         """
         self._dbm = DataBaseManager()
         self._dbm.connect()
-        self._landmarks = self._dbm.fetch_landmarks()
+        self._nodes = self._dbm.fetch_nodes()
 
     def _init_user_interface(self) -> None:
         """
@@ -25,7 +25,7 @@ class SimulationManager:
         """
         Prepares the simulation for running.
         """
-        self._ui.load_landmarks(self._landmarks)
+        self._ui.load_nodes(self._nodes)
 
     # ================= Public methods ================= #
 

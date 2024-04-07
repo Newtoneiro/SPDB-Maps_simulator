@@ -1,2 +1,2 @@
-from src.datamodels.landmark import Landmark
+from src.datamodels.node import Node
 from src.datamodels.coordinates import Coordinates

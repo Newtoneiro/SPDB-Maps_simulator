@@ -1,6 +1,6 @@
 import MySQLdb
 import os
-from src.datamodels import Landmark, Coordinates
+from src.datamodels import Node, Coordinates
 
 
 class DataBaseManager:
@@ -21,12 +21,12 @@ class DataBaseManager:
             db=os.environ.get("DB_NAME")
         )
 
-    def fetch_landmarks(self) -> list[Landmark]:
+    def fetch_nodes(self) -> list[Node]:
         """
-        Fetches all landmarks from the database.
+        Fetches all nodes from the database.
         """
         if not self._db:
             raise Exception("Database connection not initialized.")
         cursor = self._db.cursor()
-        cursor.execute("SELECT * FROM LANDMARKS")
-        return [Landmark(id, name, Coordinates(x, y)) for id, name, x, y in cursor.fetchall()]
+        cursor.execute("SELECT * FROM NODES")
+        return [Node(id, name, Coordinates(x, y)) for id, name, x, y in cursor.fetchall()]

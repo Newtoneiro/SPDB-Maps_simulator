@@ -19,6 +19,6 @@ if __name__ == "__main__":
         mycursor = db.cursor()
 
         # DROP ALL TABLES
-        drop_table(db, "LANDMARKS")
+        drop_table(db, "NODES")
 
         db.commit()

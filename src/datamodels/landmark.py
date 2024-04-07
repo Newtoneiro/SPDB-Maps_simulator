@@ -6,7 +6,7 @@ from dataclasses import dataclass
 
 
 @dataclass
-class Landmark:
+class Node:
     id: int
     name: str
     coordinates: Coordinates

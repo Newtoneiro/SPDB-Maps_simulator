@@ -42,7 +42,7 @@ class UserInterface:
         """
         Draws the map.
         """
-        self._map.draw_landmarks(self._landmarks)
+        self._map.draw_nodes(self._nodes)
         self._map.draw()
 
     def _handle_events(self) -> None:
@@ -134,12 +134,12 @@ class UserInterface:
 
     # ================== PUBLIC METHODS ================== #
         
-    def load_landmarks(self, landmarks: list) -> None:
+    def load_nodes(self, nodes: list) -> None:
         """
-        Loads landmarks onto the map.
-        :param landmarks: list of landmarks.
+        Loads nodes onto the map.
+        :param nodes: list of nodes.
         """
-        self._landmarks = landmarks
+        self._nodes = nodes
 
     def run(self) -> None:
         """

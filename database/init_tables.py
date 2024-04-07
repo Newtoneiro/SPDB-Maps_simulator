@@ -24,6 +24,6 @@ if __name__ == "__main__":
     with DB_Manager() as db:
         mycursor = db.cursor()
 
-        init_table(db, "LANDMARKS")
+        init_table(db, "NODES")
 
         db.commit()

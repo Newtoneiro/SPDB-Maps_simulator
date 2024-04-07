@@ -2,7 +2,7 @@
 
 import pygame
 from src.constants import MAP_CONSTANTS, STATIC, COLORS, PYGAME_CONSTANTS
-from src.datamodels.landmark import Landmark
+from src.datamodels.node import Node
 
 
 class Map:
@@ -55,36 +55,36 @@ class Map:
         self._surface.fill(color=COLORS.BACKGROUND_COLOR)
         self._surface.blit(scaled_map, self._map_rect)
 
-    def _draw_landmark_point(self, landmark: Landmark) -> None:
+    def _draw_node_point(self, node: Node) -> None:
         """
-        Draws a landmark on the map.
+        Draws a node on the map.
         """
         pygame.draw.circle(
             self._map,
             COLORS.BLACK,
-            (landmark.coordinates.x, landmark.coordinates.y),
-            MAP_CONSTANTS.LANDMARK_SIZE + MAP_CONSTANTS.LANDMARK_BORDER_SIZE
+            (node.coordinates.x, node.coordinates.y),
+            MAP_CONSTANTS.NODE_SIZE + MAP_CONSTANTS.NODE_BORDER_SIZE
         )
         pygame.draw.circle(
             self._map,
             COLORS.RED,
-            (landmark.coordinates.x, landmark.coordinates.y),
-            MAP_CONSTANTS.LANDMARK_SIZE
+            (node.coordinates.x, node.coordinates.y),
+            MAP_CONSTANTS.NODE_SIZE
         )
 
-    def _draw_landmark_label(self, landmark: Landmark) -> None:
+    def _draw_node_label(self, node: Node) -> None:
         """
-        Draws a label for a landmark on the map.
+        Draws a label for a node on the map.
         """
-        label_surface = self._default_label_font.render(landmark.name, True, COLORS.BLACK)
+        label_surface = self._default_label_font.render(node.name, True, COLORS.BLACK)
         label_rect = label_surface.get_rect(
             center=(
-                landmark.coordinates.x + MAP_CONSTANTS.LANDMARK_SIZE,
-                landmark.coordinates.y - MAP_CONSTANTS.LANDMARK_SIZE
+                node.coordinates.x + MAP_CONSTANTS.NODE_SIZE,
+                node.coordinates.y - MAP_CONSTANTS.NODE_SIZE
             )
         )
-        label_rect.x -= MAP_CONSTANTS.LANDMARK_SIZE
-        label_rect.y -= MAP_CONSTANTS.LANDMARK_SIZE
+        label_rect.x -= MAP_CONSTANTS.NODE_SIZE
+        label_rect.y -= MAP_CONSTANTS.NODE_SIZE
         pygame.draw.rect(
             self._map,
             COLORS.WHITE,
@@ -143,14 +143,14 @@ class Map:
         # Re-blit the map onto the surface
         self._blitmap()
 
-    def draw_landmarks(self, landmarks: list) -> None:
+    def draw_nodes(self, nodes: list) -> None:
         """
-        Draws landmarks on the map.
-        :param landmarks: list of landmarks.
+        Draws nodes on the map.
+        :param nodes: list of nodes.
         """
-        for landmark in landmarks:
-            self._draw_landmark_point(landmark)
-            self._draw_landmark_label(landmark)
+        for node in nodes:
+            self._draw_node_point(node)
+            self._draw_node_label(node)
 
     def get_coordinates(self, x: int, y: int) -> tuple:
         """
