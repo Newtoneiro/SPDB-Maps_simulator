@@ -16,6 +16,8 @@ class PYGAME_CONSTANTS:
     WINDOW_TITLE: str = "map simulation"
     DEFAULT_FONT_SIZE: int = 30
 
+    NODE_CLICK_RANGE: int = 12
+
 
 class MAP_CONSTANTS:
     """
@@ -33,6 +35,7 @@ class MAP_CONSTANTS:
 
     PATH_BORDER_SIZE: int = 3
     PATH_WIDTH: int = 4
+    PATH_LABEL_Y_OFFSET: int = 10
 
 
 class COLORS:

@@ -2,7 +2,8 @@
 
 import pygame
 from src.objects import Map
-from src.constants import PYGAME_CONSTANTS, COLORS
+from src.constants import PYGAME_CONSTANTS, COLORS, MAP_CONSTANTS
+from src.datamodels import Node, Path
 
 
 class UserInterface:
@@ -20,6 +21,8 @@ class UserInterface:
 
         self._init_pygame()
         self._init_map()
+
+        self._selected_nodes = []
 
     def _init_pygame(self) -> None:
         """
@@ -44,8 +47,9 @@ class UserInterface:
         """
         Draws the map.
         """
-        self._map.draw_nodes(self._nodes)
         self._map.draw_paths(self._paths)
+        self._map.draw_nodes(self._nodes)
+        self._map.draw_selected_nodes(self._selected_nodes)
         self._map.draw()
 
     def _handle_events(self) -> None:
@@ -80,9 +84,31 @@ class UserInterface:
             # Store the initial mouse position when left mouse button is pressed
             self._dragging = True
             self._drag_start_pos = event.pos
+            self._handle_node_click(event)
+
         if event.button == pygame.BUTTON_RIGHT:
             x, y = pygame.mouse.get_pos()
             print(self._map.get_coordinates(x, y))
+            self._selected_nodes.clear()
+
+    def _handle_node_click(self, event: pygame.event.Event) -> None:
+        x, y = pygame.mouse.get_pos()
+        clicked = self._map.get_coordinates(x, y)
+        for node in self._nodes:
+            if (
+                node.coordinates.x - PYGAME_CONSTANTS.NODE_CLICK_RANGE
+                <= clicked[0]
+                <= node.coordinates.x + PYGAME_CONSTANTS.NODE_CLICK_RANGE
+                and node.coordinates.y - PYGAME_CONSTANTS.NODE_CLICK_RANGE
+                <= clicked[1]
+                <= node.coordinates.y + PYGAME_CONSTANTS.NODE_CLICK_RANGE
+            ):
+                if node in self._selected_nodes:
+                    self._selected_nodes.remove(node)
+                    print("Deselected node", node.id)
+                else:
+                    self._selected_nodes.append(node)
+                    print("Selected node", node.id)
 
     def _handle_mouse_up(self, event: pygame.event.Event) -> None:
         """
@@ -137,14 +163,14 @@ class UserInterface:
 
     # ================== PUBLIC METHODS ================== #
 
-    def load_nodes(self, nodes: list) -> None:
+    def load_nodes(self, nodes: list[Node]) -> None:
         """
         Loads nodes onto the map.
         :param nodes: list of nodes.
         """
         self._nodes = nodes
 
-    def load_paths(self, paths: list) -> None:
+    def load_paths(self, paths: list[Path]) -> None:
         """
         Loads paths onto the map.
         :param paths: list of paths.

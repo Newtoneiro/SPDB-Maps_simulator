@@ -88,7 +88,7 @@ class Map:
             )
         )
         label_rect.x -= MAP_CONSTANTS.NODE_SIZE
-        label_rect.y -= MAP_CONSTANTS.NODE_SIZE
+        label_rect.y -= MAP_CONSTANTS.NODE_SIZE + MAP_CONSTANTS.NODE_BORDER_SIZE
         pygame.draw.rect(self._map, COLORS.WHITE, label_rect)
         self._map.blit(label_surface, label_rect)
 
@@ -110,6 +110,25 @@ class Map:
             (path.to_node.coordinates.x, path.to_node.coordinates.y),
             MAP_CONSTANTS.PATH_WIDTH,
         )
+
+    def _draw_path_label(self, path: Path) -> None:
+        """
+        Draws a label for a path on the map.
+        """
+        label_surface = self._default_label_font.render(
+            f"D {str(path.distance)}, T {str(path.travel_time)}", True, COLORS.BLACK
+        )
+        label_rect = label_surface.get_rect(
+            center=(
+                (path.from_node.coordinates.x + path.to_node.coordinates.x) / 2,
+                (path.from_node.coordinates.y + path.to_node.coordinates.y) / 2
+                + MAP_CONSTANTS.PATH_LABEL_Y_OFFSET,
+            )
+        )
+        label_rect.x -= MAP_CONSTANTS.NODE_SIZE
+        label_rect.y -= MAP_CONSTANTS.NODE_SIZE
+        pygame.draw.rect(self._map, COLORS.WHITE, label_rect)
+        self._map.blit(label_surface, label_rect)
 
     # ============== PUBLIC METHODS =============== #
 
@@ -162,7 +181,7 @@ class Map:
         # Re-blit the map onto the surface
         self._blitmap()
 
-    def draw_nodes(self, nodes: list) -> None:
+    def draw_nodes(self, nodes: list[Node]) -> None:
         """
         Draws nodes on the map.
         :param nodes: list of nodes.
@@ -171,6 +190,35 @@ class Map:
             self._draw_node_point(node)
             self._draw_node_label(node)
 
+    def draw_selected_nodes(self, nodes: list[Node]) -> None:
+        """
+        Draws selected nodes on the map.
+        :param nodes: list of selected nodes.
+        """
+        for node in nodes:
+            self.draw_selected_node(node, color=COLORS.GREEN)
+        # first node as blue
+        if len(nodes) > 0:
+            self.draw_selected_node(nodes[0], color=COLORS.BLUE)
+
+    def draw_selected_node(self, node: Node, color: tuple) -> None:
+        """
+        Draws a selected node on the map.
+        :param node: selected node.
+        """
+        pygame.draw.circle(
+            self._map,
+            COLORS.BLACK,
+            (node.coordinates.x, node.coordinates.y),
+            MAP_CONSTANTS.NODE_SIZE + MAP_CONSTANTS.NODE_BORDER_SIZE,
+        )
+        pygame.draw.circle(
+            self._map,
+            color,
+            (node.coordinates.x, node.coordinates.y),
+            MAP_CONSTANTS.NODE_SIZE,
+        )
+
     def draw_paths(self, paths: list) -> None:
         """
         Draws paths on the map.
@@ -178,6 +226,7 @@ class Map:
         """
         for path in paths:
             self._draw_path(path)
+            self._draw_path_label(path)
 
     def get_coordinates(self, x: int, y: int) -> tuple:
         """
