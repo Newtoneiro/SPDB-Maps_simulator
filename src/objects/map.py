@@ -211,13 +211,14 @@ class Map:
             self._draw_path(path, color=COLORS.BLUE)
             self._draw_path_label(path)
 
-    def draw_selected_paths(self, paths: list[Path]) -> None:
+    def draw_selected_paths_from_nodes(self, nodes: list[Node]) -> None:
         """
-        Draws selected paths on the map.
-        :param paths: list of selected paths.
+        Draws paths from selected nodes on the map.
+        :param nodes: list of selected nodes.
         """
-        for path in paths:
-            self._draw_path(path, color=COLORS.ANGRY_YELLOW)                
+        for  idx in range(len(nodes) - 1):
+            path = Path(-1, nodes[idx],nodes[idx+1] , 0, 0)
+            self._draw_path(path, color=COLORS.GREEN)
 
     def get_coordinates(self, x: int, y: int) -> tuple:
         """

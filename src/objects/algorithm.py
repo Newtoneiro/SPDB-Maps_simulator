@@ -1,12 +1,35 @@
 import heapq
-from typing import Dict, List
 from src.datamodels import Node, Path
 
 class Dijkstra:
-    def __init__(self, nodes: List[Node], paths: List[Path]):
+    def __init__(self, nodes: list[Node], paths: list[Path]):
         self.graph = self._generate_graph(nodes, paths)
 
-    def find_shortest_paths(self, start: Node, destinations: List[Node]) -> Dict[Node, Path]:
+
+    def find_shortest_paths(self, selected_nodes: list[Node]) -> list[Node]:
+        """
+        Finds the shortest path between selected nodes.
+        :param selected_nodes: list of selected nodes.
+        :return: list of nodes in the shortest path.
+        """
+        if len(selected_nodes) < 2:
+            return []
+
+        for idx in range(len(selected_nodes) - 1):
+            start = selected_nodes[idx]
+            destination = selected_nodes[idx + 1]
+            path = self.find_shortest_path(start, destination)
+            if idx == 0:
+                shortest_path = path
+            else:
+                shortest_path.extend(path[1:])
+
+        return shortest_path
+
+    def find_shortest_path(self, start: Node, destination: Node) -> list[Node]:
+        """
+        Finds the shortest path between two nodes.
+        """
         # Initialize distances to all nodes as infinity
         distances = {node: float('inf') for node in self.graph}
         distances[start] = 0  # Distance from start node to itself is 0
@@ -21,7 +44,7 @@ class Dijkstra:
             current_distance, current_node = heapq.heappop(priority_queue)
 
             # If destination is reached, stop exploration
-            if current_node in destinations:
+            if current_node == destination:
                 break
 
             # Explore neighbors of the current node
@@ -32,19 +55,17 @@ class Dijkstra:
                     heapq.heappush(priority_queue, (distance, neighbor))
                     previous[neighbor] = current_node
 
-        # Reconstruct shortest paths to destinations
-        shortest_paths = {}
-        for destination in destinations:
-            path = []
-            node = destination
-            while node is not None:
-                path.insert(0, node)
-                node = previous[node]
-            shortest_paths[destination] = path
+        # Reconstruct shortest path to destination
+        path = []
+        node = destination
+        while node is not None:
+            path.insert(0, node)
+            node = previous[node]
 
-        return shortest_paths
+        return path
 
-    def _generate_graph(self, nodes: List[Node], paths: List[Path]) -> Dict[Node, Dict[Node, Path]]:
+
+    def _generate_graph(self, nodes: list[Node], paths: list[Path]) -> dict[Node, dict[Node, Path]]:
         graph = {node: {} for node in nodes}
         for path in paths:
             graph[path.from_node][path.to_node] = path

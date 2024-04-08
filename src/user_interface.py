@@ -54,7 +54,7 @@ class UserInterface:
         Draws the map.
         """
         self._map.draw_paths(self._paths)
-        self._map.draw_selected_paths(self._selected_paths)
+        self._map.draw_selected_paths_from_nodes(self._selected_paths)
         self._map.draw_nodes(self._nodes)
         self._map.draw_selected_nodes(self._selected_nodes)
         self._map.draw()
@@ -97,6 +97,7 @@ class UserInterface:
             x, y = pygame.mouse.get_pos()
             print(self._map.get_coordinates(x, y))
             self._selected_nodes.clear()
+            self._selected_paths.clear()
 
     def _handle_node_click(self, event: pygame.event.Event) -> None:
         x, y = pygame.mouse.get_pos()
@@ -119,9 +120,11 @@ class UserInterface:
             
                 if len(self._selected_nodes) >= 2:
                     self._selected_paths = self._dijkstra.find_shortest_paths(
-                        self._selected_nodes[0], self._selected_nodes[1:]
+                        self._selected_nodes
                     )
                     print("Selected paths", self._selected_paths)
+                else:
+                    self._selected_paths.clear()
 
     def _handle_mouse_up(self, event: pygame.event.Event) -> None:
         """
