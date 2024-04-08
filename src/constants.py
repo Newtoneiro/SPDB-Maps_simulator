@@ -10,8 +10,8 @@ class PYGAME_CONSTANTS:
     Constants for pygame config.
     """
 
-    WIDTH: int = 800
-    HEIGHT: int = 800
+    WIDTH: int = 1920
+    HEIGHT: int = 1080
     FPS: int = 120
     WINDOW_TITLE: str = "map simulation"
     DEFAULT_FONT_SIZE: int = 30
