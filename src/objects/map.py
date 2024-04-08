@@ -130,7 +130,6 @@ class Map:
         pygame.draw.rect(self._map, COLORS.WHITE, label_rect)
         self._map.blit(label_surface, label_rect)
 
-
     # ============== PUBLIC METHODS =============== #
 
     def zoom(self, zoom: float) -> None:
@@ -188,7 +187,7 @@ class Map:
         :param nodes: list of nodes.
         """
         for node in nodes:
-            self._draw_node_point(node, color = COLORS.RED)
+            self._draw_node_point(node, color=COLORS.RED)
             self._draw_node_label(node)
 
     def draw_selected_nodes(self, nodes: list[Node]) -> None:
@@ -216,8 +215,8 @@ class Map:
         Draws paths from selected nodes on the map.
         :param nodes: list of selected nodes.
         """
-        for  idx in range(len(nodes) - 1):
-            path = Path(-1, nodes[idx],nodes[idx+1] , 0, 0)
+        for idx in range(len(nodes) - 1):
+            path = Path(-1, nodes[idx], nodes[idx + 1], 0, 0)
             self._draw_path(path, color=COLORS.GREEN)
 
     def get_coordinates(self, x: int, y: int) -> tuple:

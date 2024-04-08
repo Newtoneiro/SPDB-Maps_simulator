@@ -47,6 +47,7 @@ class UserInterface:
         Initializes the Dijkstra algorithm.
         """
         self._dijkstra = Dijkstra(self._nodes, self._paths)
+
     # ============== PRIVATE METHODS =============== #
 
     def _draw_map(self) -> None:
@@ -117,7 +118,7 @@ class UserInterface:
                 else:
                     self._selected_nodes.append(node)
                     print("Selected node", node.id)
-            
+
                 if len(self._selected_nodes) >= 2:
                     self._selected_paths = self._dijkstra.find_shortest_paths(
                         self._selected_nodes

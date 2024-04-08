@@ -1,10 +1,10 @@
 import heapq
 from src.datamodels import Node, Path
 
+
 class Dijkstra:
     def __init__(self, nodes: list[Node], paths: list[Path]):
         self.graph = self._generate_graph(nodes, paths)
-
 
     def find_shortest_paths(self, selected_nodes: list[Node]) -> list[Node]:
         """
@@ -31,7 +31,7 @@ class Dijkstra:
         Finds the shortest path between two nodes.
         """
         # Initialize distances to all nodes as infinity
-        distances = {node: float('inf') for node in self.graph}
+        distances = {node: float("inf") for node in self.graph}
         distances[start] = 0  # Distance from start node to itself is 0
 
         # Priority queue for nodes to visit next
@@ -64,8 +64,9 @@ class Dijkstra:
 
         return path
 
-
-    def _generate_graph(self, nodes: list[Node], paths: list[Path]) -> dict[Node, dict[Node, Path]]:
+    def _generate_graph(
+        self, nodes: list[Node], paths: list[Path]
+    ) -> dict[Node, dict[Node, Path]]:
         graph = {node: {} for node in nodes}
         for path in paths:
             graph[path.from_node][path.to_node] = path
