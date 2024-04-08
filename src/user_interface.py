@@ -1,7 +1,7 @@
 """ User interface module. """
 
 import pygame
-from src.objects import Map
+from src.objects import Map, Dijkstra
 from src.constants import PYGAME_CONSTANTS, COLORS, MAP_CONSTANTS
 from src.datamodels import Node, Path
 
@@ -23,6 +23,7 @@ class UserInterface:
         self._init_map()
 
         self._selected_nodes = []
+        self._selected_paths = []
 
     def _init_pygame(self) -> None:
         """
@@ -41,6 +42,11 @@ class UserInterface:
         """
         self._map = Map(self._win, self._clock)
 
+    def load_dijkstra(self) -> None:
+        """
+        Initializes the Dijkstra algorithm.
+        """
+        self._dijkstra = Dijkstra(self._nodes, self._paths)
     # ============== PRIVATE METHODS =============== #
 
     def _draw_map(self) -> None:
@@ -48,6 +54,7 @@ class UserInterface:
         Draws the map.
         """
         self._map.draw_paths(self._paths)
+        self._map.draw_selected_paths(self._selected_paths)
         self._map.draw_nodes(self._nodes)
         self._map.draw_selected_nodes(self._selected_nodes)
         self._map.draw()
@@ -109,6 +116,12 @@ class UserInterface:
                 else:
                     self._selected_nodes.append(node)
                     print("Selected node", node.id)
+            
+                if len(self._selected_nodes) >= 2:
+                    self._selected_paths = self._dijkstra.find_shortest_paths(
+                        self._selected_nodes[0], self._selected_nodes[1:]
+                    )
+                    print("Selected paths", self._selected_paths)
 
     def _handle_mouse_up(self, event: pygame.event.Event) -> None:
         """

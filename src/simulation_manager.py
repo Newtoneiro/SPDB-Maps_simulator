@@ -28,6 +28,7 @@ class SimulationManager:
         """
         self._ui.load_nodes(self._nodes)
         self._ui.load_paths(self._paths)
+        self._ui.load_dijkstra()
 
     # ================= Public methods ================= #
 
