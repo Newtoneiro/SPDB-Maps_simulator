@@ -199,7 +199,7 @@ class Map:
             self._draw_node_point(node, color=COLORS.GREEN)
         # first node as blue
         if len(nodes) > 0:
-            self._draw_node_point(nodes[0], color=COLORS.BLUE)
+            self._draw_node_point(nodes[0], color=COLORS.ANGRY_YELLOW)
 
     def draw_paths(self, paths: list[Path]) -> None:
         """
