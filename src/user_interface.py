@@ -2,7 +2,7 @@
 
 import pygame
 from src.objects import Map, Dijkstra
-from src.constants import PYGAME_CONSTANTS, COLORS, MAP_CONSTANTS
+from src.constants import PYGAME_CONSTANTS, COLORS, MAP_CONSTANTS, SYMULATION
 from src.datamodels import Node, Path
 
 
@@ -24,7 +24,8 @@ class UserInterface:
 
         self._selected_nodes = []
         self._selected_paths = []
-        self._selected_mode = "distance"
+        self._left_turn_mode = SYMULATION.LEFT_TURN_OFF
+        self._selected_mode = SYMULATION.DISTANCE_MODE
 
     def _init_pygame(self) -> None:
         """
@@ -60,6 +61,7 @@ class UserInterface:
         self._map.draw_nodes(self._nodes)
         self._map.draw_selected_nodes(self._selected_nodes)
         self._map.draw()
+        self._map.draw_mode_info(self._selected_mode, self._left_turn_mode)
 
     def _handle_events(self) -> None:
         """
@@ -133,16 +135,12 @@ class UserInterface:
         Calculates the route based on the selected nodes.
         """
         if len(self._selected_nodes) >= 2:
-            if self._selected_mode == "distance":
-                self._selected_paths = self._dijkstra.find_shortest_paths_distance(
-                    self._selected_nodes
-                )
-            elif self._selected_mode == "time":
-                self._selected_paths = self._dijkstra.find_shortest_paths_time(
-                    self._selected_nodes,
-                )
-            elif self._selected_mode == "min_left_turns":
-                pass
+
+            self._selected_paths = self._dijkstra.find_shortest_paths(
+                self._selected_nodes, self._selected_mode, self._left_turn_mode
+            )
+
+
 
         else:
             self._selected_paths.clear()
@@ -183,13 +181,13 @@ class UserInterface:
         pressed = pygame.key.get_pressed()
 
         if pressed[pygame.K_q]:
-            self._selected_mode = "distance"
+            self._selected_mode = SYMULATION.DISTANCE_MODE
             self._calculate_route()
         if pressed[pygame.K_w]:
-            self._selected_mode = "time"
+            self._selected_mode = SYMULATION.TIME_MODE
             self._calculate_route()
         if pressed[pygame.K_e]:
-            self._selected_mode = "min_left_turns"
+            self._left_turn_mode = not self._left_turn_mode
             self._calculate_route()
 
     def _handle_scroll(self, event: pygame.event.Event) -> None:

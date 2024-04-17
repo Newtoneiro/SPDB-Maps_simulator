@@ -219,6 +219,35 @@ class Map:
             path = Path(-1, nodes[idx], nodes[idx + 1], 0, 0)
             self._draw_path(path, color=COLORS.GREEN)
 
+    def draw_mode_info(self, selected_mode, left_turn_mode) -> None:
+        """
+        Draws the selected mode and left turn mode status.
+        """
+        font = pygame.font.SysFont(None, 24)
+        mode_text = font.render(f"Mode: {selected_mode}", True, COLORS.BLACK)
+        turn_mode_text = font.render(
+            f"Left Turn Mode: {'On' if left_turn_mode else 'Off'}",
+            True,
+            COLORS.BLACK,
+        )
+
+        # Calculate the size of the white surface
+        mode_rect = mode_text.get_rect()
+        turn_mode_rect = turn_mode_text.get_rect()
+        width = max(mode_rect.width, turn_mode_rect.width) + 20
+        height = mode_rect.height + turn_mode_rect.height + 10
+
+        # Create a white surface
+        info_surface = pygame.Surface((width, height))
+        info_surface.fill(COLORS.WHITE)
+
+        # Blit the text onto the white surface
+        info_surface.blit(mode_text, (10, 5))
+        info_surface.blit(turn_mode_text, (10, mode_rect.height + 5))
+
+        # Blit the white surface onto the window
+        self._win.blit(info_surface, (10, 10))
+
     def get_coordinates(self, x: int, y: int) -> tuple:
         """
         Returns the coordinates of the map.

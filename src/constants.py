@@ -37,6 +37,19 @@ class MAP_CONSTANTS:
     PATH_WIDTH: int = 4
     PATH_LABEL_Y_OFFSET: int = 10
 
+class ALOGRITHM_CONSTANTS:
+    """
+    Constants for algorithm.
+    """
+    LEFT_TURN_DISTANCE_PENALTY: int = 400
+    LEFT_TURN_TIME_PENALTY: int = 1
+
+
+    DISTANCE_MODE: str = "distance"
+    TIME_MODE: str = "time"
+
+    LEFT_TURN_ON: bool = True
+    LEFT_TURN_OFF: bool = False
 
 class COLORS:
     """
@@ -53,7 +66,16 @@ class COLORS:
 
     BACKGROUND_COLOR: tuple = BLACK
 
+class SYMULATION:
+    """
+    Constants for simulation.
+    """
 
+    DISTANCE_MODE: str = "distance"
+    TIME_MODE: str = "time"
+    LEFT_TURN_ON: bool = True
+    LEFT_TURN_OFF: bool = False
+    
 class STATIC:
     """
     Static constants.
@@ -61,3 +83,4 @@ class STATIC:
 
     STATIC_DIR: str = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
     MAP_IMG: str = os.path.join(STATIC_DIR, "map_image.jpg")
+
