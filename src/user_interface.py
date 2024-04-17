@@ -180,7 +180,6 @@ class UserInterface:
         """
         Handles key down event.
         """
-        print("dupa")
         pressed = pygame.key.get_pressed()
 
         if pressed[pygame.K_q]:
