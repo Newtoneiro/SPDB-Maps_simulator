@@ -2,7 +2,7 @@
 
 import pygame
 from src.objects import Map, Dijkstra
-from src.constants import PYGAME_CONSTANTS, COLORS, MAP_CONSTANTS, SYMULATION
+from src.constants import PYGAME_CONSTANTS, SYMULATION
 from src.datamodels import Node, Path
 
 
@@ -83,18 +83,13 @@ class UserInterface:
             pygame.MOUSEMOTION: lambda event: self._handle_mouse_motion(event),
         }
 
-        self._key_callbacks = {
-            pygame.K_v: self._handle_example,
-
-        }
-
-
     def _handle_mouse_down(self, event: pygame.event.Event) -> None:
         """
         Handles mouse button down event.
         """
         if event.button == pygame.BUTTON_LEFT:
-            # Store the initial mouse position when left mouse button is pressed
+            # Store the initial mouse position when left\
+            # mouse button is pressed
             self._dragging = True
             self._drag_start_pos = event.pos
             self._handle_node_click(event)
@@ -104,7 +99,6 @@ class UserInterface:
             print(self._map.get_coordinates(x, y))
             self._selected_nodes.clear()
             self._selected_paths.clear()
-
 
     def _handle_node_click(self, event: pygame.event.Event) -> None:
         """
@@ -135,13 +129,9 @@ class UserInterface:
         Calculates the route based on the selected nodes.
         """
         if len(self._selected_nodes) >= 2:
-
             self._selected_paths = self._dijkstra.find_shortest_paths(
                 self._selected_nodes, self._selected_mode, self._left_turn_mode
             )
-
-
-
         else:
             self._selected_paths.clear()
 
@@ -197,14 +187,6 @@ class UserInterface:
         if not self._dragging:  # Zoom only if not dragging
             zoom_factor = 1 + event.y * 0.1
             self._map.zoom(zoom_factor)
-
-    # ================== KEY CALLBACKS ================== #
-
-    def _handle_example(self) -> None:
-        """
-        Handles show vectors event.
-        """
-        print("Example")
 
     # ================== PUBLIC METHODS ================== #
 
