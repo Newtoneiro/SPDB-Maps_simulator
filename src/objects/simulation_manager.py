@@ -1,5 +1,5 @@
-from src.database_manager import DataBaseManager
-from src.user_interface import UserInterface
+from src.objects.database_manager import DataBaseManager
+from src.objects.user_interface import UserInterface
 
 
 class SimulationManager:
