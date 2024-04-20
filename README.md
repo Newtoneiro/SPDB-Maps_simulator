@@ -1,6 +1,6 @@
 # MAPS SIMULATOR PROJECT
 
-![text](img/map.png "Map")
+![text](img/UI.png "Map")
 ## Database setup
 
 1. Install the mysql database according to your system (for windows follow [this](https://www.w3schools.com/mysql/mysql_install_windows.asp) link.)
