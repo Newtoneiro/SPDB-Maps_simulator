@@ -43,7 +43,7 @@ class ALOGRITHM_CONSTANTS:
     Constants for algorithm.
     """
 
-    LEFT_TURN_DISTANCE_PENALTY: int = 400
+    LEFT_TURN_DISTANCE_PENALTY: int = 350
     LEFT_TURN_TIME_PENALTY: int = 1
 
     DISTANCE_MODE: str = "distance"
