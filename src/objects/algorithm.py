@@ -107,14 +107,13 @@ class Dijkstra:
         """
         Checks if the turn from the current node to the next node is a left turn.
         """
-        # Determine the vectors representing the current and next segments
         current_vector = (
-            previous_node.coordinates.x - next_node.coordinates.x,
-            previous_node.coordinates.y - next_node.coordinates.y,
-        )
-        next_vector = (
             current_node.coordinates.x - previous_node.coordinates.x,
             current_node.coordinates.y - previous_node.coordinates.y,
+        )
+        next_vector = (
+            next_node.coordinates.x - current_node.coordinates.x,
+            next_node.coordinates.y - current_node.coordinates.y,
         )
 
         # Calculate the cross product of the vectors
@@ -122,7 +121,8 @@ class Dijkstra:
             current_vector[0] * next_vector[1] - current_vector[1] * next_vector[0]
         )
 
-        # If the cross product is negative, it's a left turn (because we are using a coordinate system where the y-axis is inverted)
+        # The Y axis is reversed in pygame
+        # Negative cross_product means it a left turn
         return cross_product < 0
 
     def _generate_graph(
