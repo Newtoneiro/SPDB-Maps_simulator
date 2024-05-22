@@ -10,8 +10,8 @@ class PYGAME_CONSTANTS:
     Constants for pygame config.
     """
 
-    WIDTH: int = 1920
-    HEIGHT: int = 1080
+    WIDTH: int = 1600
+    HEIGHT: int = 900
     FPS: int = 120
     WINDOW_TITLE: str = "q - Distance mode | w - Time mode | e - toggle optimize left turns"
     DEFAULT_FONT_SIZE: int = 30
